@@ -10,6 +10,7 @@ import community from './server/routes/community';
 import chat from './server/routes/chat';
 import privateChat from './server/routes/private-chat';
 import gitLabRoute from './server/helpers/gitlabRoute';
+import dropdown from './server/routes/dropdown';
 
 dotenv.config();
 
@@ -21,6 +22,9 @@ mongoose.connect(process.env.MONGO_URL, () => console.log('Mongoose connected'))
 This will only save users if they don't exist locally yet */
 // require('./server/helpers/mockData');
 
+//*==== Populating DB with dynamic-dropdown data ====>
+require('./server/helpers/populateDropdowns');
+
 // initialize Express app and setup routes
 const app = express();
 app.use(bodyParser.json());
@@ -31,6 +35,7 @@ app.use(community);
 app.use(chat);
 app.use(privateChat);
 app.use(gitLabRoute);
+app.use(dropdown);
 
 // server main app and statis assets:
 app.use(express.static(path.join(__dirname, '/client/build')));

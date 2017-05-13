@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Social from './Profile/Preferences/Social';
@@ -67,6 +68,8 @@ class Preferences extends React.Component {
       mentorshipPopUp: false,
       showBottomButton: false,
       skillsAndInterestsPopUp: false,
+      skillsOptions: [],
+      interestsOptions: [],
     }
     // SHARED ERRORS:
     this.EMAIL_ERROR = "Please enter a valid email address."
@@ -78,7 +81,19 @@ class Preferences extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('scroll', this.handleScroll)
+    document.addEventListener('scroll', this.handleScroll);
+    // populate skills dropdown with modified data
+    axios.post('/api/populate-dropdown', { id: 'coreSkills' })
+      .then(res => {
+        const { items } = res.data;
+        this.setState({ skillsOptions: items });
+    });
+    // populate interests dropdown with modified data
+    axios.post('/api/populate-dropdown', { id: 'codingInterests' })
+      .then(res => {
+        const { items } = res.data;
+        this.setState({ interestsOptions: items });
+    });
   }
 
   componentWillUnmount() {
@@ -104,16 +119,38 @@ class Preferences extends React.Component {
     this.setState({ user });
   }
 
-  handleSkillsChange = (e, data) => {
+  handleSkillsChange = (e, { value }) => {
     var { user } = this.state;
-    user.skillsAndInterests.coreSkills = data.value;
+    user.skillsAndInterests.coreSkills = value;
     this.setState({ user });
   }
 
-  handleInterestsChange = (e, data) => {
+  handleInterestsChange = (e, { value }) => {
     var { user } = this.state;
-    user.skillsAndInterests.codingInterests = data.value;
+    user.skillsAndInterests.codingInterests = value;
     this.setState({ user });
+  }
+
+  handleSkillsAddition = (e, { value }) => {
+    const { skillsOptions } = this.state;
+    this.setState({
+      skillsOptions: [{ key: value, text: value, value }, ...skillsOptions],
+    });
+    // save item to dropdown collection on server
+    axios.post('/api/add-dropdown-item',
+      { id: 'coreSkills', item: { key: value, text: value, value } }
+    );
+  }
+
+  handleInterestsAddition = (e, { value }) => {
+    const { interestsOptions } = this.state;
+    this.setState({
+      interestsOptions: [{ key: value, text: value, value }, ...interestsOptions],
+    });
+    // save item to dropdown collection on server
+    axios.post('/api/add-dropdown-item',
+      { id: 'codingInterests', item: { key: value, text: value, value } }
+    );
   }
 
   handleCountryChange = (e, data) => {
@@ -487,10 +524,14 @@ class Preferences extends React.Component {
             toggle={this.toggle}
             {...skillsAndInterests}
             subSaveClick={this.handleSubSaveClick}
+            skillsOptions={this.state.skillsOptions}
             showSkills={this.state.viewState.showSkills}
             handleSkillsChange={this.handleSkillsChange}
+            interestsOptions={this.state.interestsOptions}
             showPopUp={this.state.skillsAndInterestsPopUp}
-            handleInterestsChange={this.handleInterestsChange} />
+            handleSkillsAddition={this.handleSkillsAddition}
+            handleInterestsChange={this.handleInterestsChange}
+            handleInterestsAddition={this.handleInterestsAddition} />
           <Collaboration
             username={username}
             toggle={this.toggle}

@@ -4,8 +4,6 @@ import { isEmpty } from 'lodash';
 import Ribbon from './common/RibbonHeader';
 import MessageBox from '../../common/MessageBox';
 import DropdownMulti from '../../common/DropdownMulti';
-import skills from '../../../../assets/dropdowns/skills';
-import interests from '../../../../assets/dropdowns/interests';
 import { TransitionContainer } from '../../../../styles/globalStyles';
 
 export default class SkillsAndInterests extends React.Component {
@@ -14,15 +12,20 @@ export default class SkillsAndInterests extends React.Component {
   }
   render() {
     const {
+      toggle,
+      showPopUp,
+      coreSkills,
       showSkills,
       subSaveClick,
-      showPopUp,
-      toggle,
+      skillsOptions,
+      codingInterests,
+      interestsOptions,
       handleSkillsChange,
+      handleSkillsAddition,
       handleInterestsChange,
-      coreSkills,
-      codingInterests
+      handleInterestsAddition,
     } = this.props;
+    console.log(coreSkills)
     return (
       <div>
         <Ribbon
@@ -41,10 +44,12 @@ export default class SkillsAndInterests extends React.Component {
             message="Enter information about your coding skills below, so other users know your strengths!" />
           <DropdownMulti
             search={true}
-            options={skills}
+            allowAdditions
             value={coreSkills}
+            options={skillsOptions}
             placeholder="Choose Skills"
-            onChange={handleSkillsChange} />
+            onChange={handleSkillsChange}
+            onAddItem={handleSkillsAddition} />
           <div className="ui horizontal divider">Coding Interests</div>
           <MessageBox
             type="info"
@@ -53,10 +58,12 @@ export default class SkillsAndInterests extends React.Component {
             message="Let other users know what you're into so you can find others with similar interetsts!" />
           <DropdownMulti
             search={true}
-            options={interests}
+            allowAdditions
             value={codingInterests}
+            options={interestsOptions}
             placeholder="Choose Interests"
-            onChange={handleInterestsChange} />
+            onChange={handleInterestsChange}
+            onAddItem={handleInterestsAddition} />
           <div className="spacer" />
         </TransitionContainer>
       </div>
