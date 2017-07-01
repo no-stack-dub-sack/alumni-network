@@ -11,6 +11,9 @@ import chat from './server/routes/chat';
 import privateChat from './server/routes/private-chat';
 import gitLabRoute from './server/helpers/gitlabRoute';
 
+import WhiteListedUser from './server/models/whitelisted-user';
+import HonoraryMember from './server/models/honorary-member';
+
 // ALLOW SIGNUP W/O CERT(S):
 export const isAllowed = false;
 // temporarily set to true to
@@ -24,6 +27,28 @@ mongoose.connect(process.env.MONGO_URL).then(
   (res) => { console.log('Mongoose connected') },
   (err) => { console.error('Error connecting to MongoDB. Make sure MongoDB is running.') }
 );
+
+mongoose.connection.collection('whitelistedusers');
+// initialize user whitelists only once
+// HonoraryMember.findOne({ reason: 'initialize' }, (err, initialized) => {
+//   if (err) throw err;
+//   if (!initialized) {
+//     const whiteListedUser = new WhiteListedUser({
+//       githubUsername: '---',
+//       fccUsername: '---'
+//     });
+//     whiteListedUser.save();
+//
+//     const honoraryMember = new HonoraryMember({
+//       username: '---',
+//       reason: 'initialize'
+//     });
+//     honoraryMember.save();
+//   } else {
+//     console.log('white lists already exist');
+//   }
+// });
+//
 
 // initialize Express app and setup routes
 const app = express();
