@@ -19,6 +19,7 @@ export const whitelist = {
 
    Rayhatron: 'rayhatron', // case discrepancy
    '3dw1nM0535': '3dw1nm0535', // case discrepancy
+   'ImNotARealUser': 'no-stack-dub-sack'
 
 };
 
@@ -38,6 +39,6 @@ export const honoraryMembers = {
    quincylarson: 'He founded freeCodeCamp',
    p1xt: 'Prolific freeCodeCamp community member',
    tropicalchancer: 'founder of chingu cohorts and FCCAN benefactor',
-   imnotarealuser: 'test user. honoraryMembers list works now, but usernames must be all lowercase.',
+  //  imnotarealuser: 'test user. honoraryMembers list works now, but usernames must be all lowercase.',
 
 };
