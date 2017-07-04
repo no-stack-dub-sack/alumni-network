@@ -8,7 +8,7 @@ import HonoraryMember from '../models/honorary-member';
 import { isAuthenticated } from './passport';
 import passport from 'passport';
 import PrivateChat from '../models/private-chat';
-import processVerification from '../helpers/processCerts';
+import isCertified from '../helpers/processCerts';
 import User from '../models/user';
 
 const router = express.Router();
@@ -30,14 +30,14 @@ router.post('/api/user', (req, res) => {
 
 router.post('/api/verify-credentials', isAuthenticated, (req, res) => {
   const { mongoId } = req.body;
-  (async function initiateUserVerification() {
+  (async function processUserVerification() {
     // if user is whitelisted, use their alternate username
     var username = await checkWhiteList(req.body.username);
     var isWhitelistedUser = !(username === req.body.username);
     // if user is honorary member, they will be let in w/o certs
     var isHonoraryMember = await checkHonoraryMemberList(username);
     // process FCC verification...
-    processVerification(username, isHonoraryMember, isWhitelistedUser)
+    isCertified(username, isHonoraryMember, isWhitelistedUser)
     .then(certs => {
       // update user with certs and correct status in DB
       handleProcessedUser(certs, mongoId, req, res, username);
