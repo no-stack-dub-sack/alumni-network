@@ -1,4 +1,4 @@
-import HonoraryMember from '../models/honorary-member';
+import HonoraryMember from '../models/honorarymember';
 
 export default (username) => {
   return new Promise(resolve => {

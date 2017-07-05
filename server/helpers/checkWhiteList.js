@@ -1,4 +1,4 @@
-import WhiteListedUser from '../models/whitelisted-user';
+import WhiteListedUser from '../models/whitelisteduser';
 
 export default (githubUsername) => {
   return new Promise(resolve => {

@@ -4,7 +4,6 @@ import checkHonoraryMemberList from '../helpers/checkHonoraryMemberList';
 import checkWhiteList from '../helpers/checkWhiteList';
 import express from 'express';
 import handleProcessedUser from '../helpers/handleProcessedUser';
-import HonoraryMember from '../models/honorary-member';
 import { isAuthenticated } from './passport';
 import passport from 'passport';
 import PrivateChat from '../models/private-chat';
