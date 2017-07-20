@@ -1,0 +1,59 @@
+exports[`test loginSegment renders correctly given "isMobile" is false 1`] = `
+<div
+  className="ui segment">
+  <h2
+    className="ui green image header">
+    <i
+      className="huge github icon" />
+    <div
+      className="content">
+      Login with GitHub
+    </div>
+  </h2>
+  <div
+    className="ui segment">
+    <a
+      className="ui green button"
+      href="//localhost:8080/auth/github">
+      Login
+    </a>
+  </div>
+  <div
+    className="ui info message">
+    <div
+      className="header">
+      Joining the freeCodeCamp Alumni Network requires
+                both freeCodeCamp and GitHub credentials.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`test loginSegment renders correctly given "isMobile" is true 1`] = `
+<div
+  className="ui segment">
+  <h2
+    className="ui green image header">
+    <div
+      className="content">
+      Login with GitHub
+    </div>
+  </h2>
+  <div
+    className="ui segment">
+    <a
+      className="ui green button"
+      href="//localhost:8080/auth/github">
+      Login
+    </a>
+  </div>
+  <div
+    className="ui info message">
+    <div
+      className="header">
+      Joining the freeCodeCamp Alumni Network requires
+                both freeCodeCamp and GitHub credentials.
+    </div>
+  </div>
+</div>
+`;

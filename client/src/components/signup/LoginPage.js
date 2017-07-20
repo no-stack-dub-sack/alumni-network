@@ -4,6 +4,30 @@ import { mapScreenSizeToProps } from '../Navbar';
 import React from 'react';
 import styled from 'styled-components';
 
+export const LoginSegment = ({ isMobile }) => {
+  return (
+    <div className="ui segment">
+      <h2 className="ui green image header">
+        { !isMobile && <i className="huge github icon" /> }
+        <div className="content">
+          {'Login with GitHub'}
+        </div>
+      </h2>
+      <div className="ui segment">
+        <a className="ui green button" href={`${APP_HOST}/auth/github`}>
+          {'Login'}
+        </a>
+      </div>
+      <div className="ui info message">
+        <div className="header">
+          {`Joining the freeCodeCamp Alumni Network requires
+          both freeCodeCamp and GitHub credentials.`}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 class LoginPage extends React.Component {
   state = {
     flashMessageCleared: false
@@ -36,25 +60,7 @@ class LoginPage extends React.Component {
             : isTablet
             ? 'ten'
             : 'six'} wide column`}>
-          <div className="ui segment">
-            <h2 className="ui green image header">
-              { !isMobile && <i className="huge github icon" /> }
-              <div className="content">
-                {'Login with GitHub'}
-              </div>
-            </h2>
-            <div className="ui segment">
-              <a className="ui green button" href={`${APP_HOST}/auth/github`}>
-                {'Login'}
-              </a>
-            </div>
-            <div className="ui info message">
-              <div className="header">
-                {`Joining the freeCodeCamp Alumni Network requires
-                both freeCodeCamp and GitHub credentials.`}
-              </div>
-            </div>
-          </div>
+            <LoginSegment isMobile={isMobile} />
           { isDesktop &&
           <div className="center aligned segment">
             <i className="massive green arrow up icon" id="arrow-bounce" />

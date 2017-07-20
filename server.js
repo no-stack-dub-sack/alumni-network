@@ -18,7 +18,7 @@ dotenv.config();
 // initialize mongoDB
 mongoose.Promise = require('bluebird');
 
-mongoose.connect(process.env.MONGO_URL).then(
+mongoose.connect(process.env.MONGO_URL, { useMongoClient: true }).then(
   (res) => { console.log('Mongoose connected'); },
   (err) => { console.error('Error connecting to MongoDB. Make sure MongoDB is running.'); }
 );

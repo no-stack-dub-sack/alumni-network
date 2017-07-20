@@ -51,6 +51,7 @@
     "react-redux": "^5.0.3",
     "react-router-dom": "^4.0.0-beta.7",
     "react-screen-size": "^1.0.1",
+    "react-test-renderer": "^15.6.1",
     "recursive-readdir": "^2.1.1",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.0",
@@ -73,7 +74,7 @@
     "start-js": "node scripts/start.js",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom",
+    "test": "jest",
     "lint": "eslint --fix src/"
   },
   "proxy": "http://backend:8080",
