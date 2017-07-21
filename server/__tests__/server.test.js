@@ -1,10 +1,8 @@
-import axios from 'axios';
+import HonoraryMember from '../models/honoraryMember';
 import { Mockgoose } from 'mockgoose';
 import mongoose from 'mongoose';
-import User from '../models/user';
 
 const mockgoose = new Mockgoose(mongoose);
-const verifiedUser = require('../__mockData__/verifiedUser.json');
 
 describe('api endpoints', () => {
   beforeAll(() => {
@@ -19,7 +17,10 @@ describe('api endpoints', () => {
 
   beforeEach(() => {
     mockgoose.helper.reset();
-    User.create(verifiedUser, (err) => {
+    HonoraryMember.create(
+      { username: 'someone', reason: 'a test' },
+      { username: 'someone else', reason: 'another test' },
+      (err) => {
         if (err) {
           console.error(`Error creating documents in beforeEach: ${err}`);
         }
@@ -29,11 +30,8 @@ describe('api endpoints', () => {
   /* now that we can mock mongo calls, we should be able
   to test the API endpoints successfully using jest */
   it('returns 2 documents', () => {
-    // User.findOne({username: 'no-stack-dub-sack'}, (err, user) => {
-    //   expect(user.username).toBe('no-stack-dub-sack');
-    // });
-    axios.post('/api/user').then(res => {
-      expect(res.data).toBeDefined();
-    })
+    HonoraryMember.find({}, (err, users) => {
+      expect(users.length).toBe(2)
+    });
   });
 });
