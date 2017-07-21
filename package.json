@@ -41,6 +41,8 @@
     "passport-github2": "^0.1.10",
     "passport-linkedin": "^1.0.0",
     "passport-twitter": "^1.0.4",
+    "supertest": "^3.0.0",
+    "supertest-session": "^3.1.0",
     "validator": "^7.0.0"
   },
   "devDependencies": {

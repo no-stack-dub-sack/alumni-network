@@ -1,8 +1,19 @@
-import HonoraryMember from '../models/honoraryMember';
 import { Mockgoose } from 'mockgoose';
 import mongoose from 'mongoose';
+import server from '../../server';
+import User from '../models/user';
+
+// const request = require('supertest');
+const session = require('supertest-session');
+const verifiedUser = require('../__mockData__/verifiedUser.json');
 
 const mockgoose = new Mockgoose(mongoose);
+
+var testSession = session(server, {
+  before: function (req) {
+    req.set('user', {username: 'no-stack-dub-sack'});
+  }
+});
 
 describe('api endpoints', () => {
   beforeAll(() => {
@@ -17,21 +28,22 @@ describe('api endpoints', () => {
 
   beforeEach(() => {
     mockgoose.helper.reset();
-    HonoraryMember.create(
-      { username: 'someone', reason: 'a test' },
-      { username: 'someone else', reason: 'another test' },
-      (err) => {
+    User.create(verifiedUser, (err) => {
         if (err) {
           console.error(`Error creating documents in beforeEach: ${err}`);
         }
     })
   });
 
-  /* now that we can mock mongo calls, we should be able
-  to test the API endpoints successfully using jest */
+  /* test mockgoose works */
   it('returns 2 documents', () => {
-    HonoraryMember.find({}, (err, users) => {
-      expect(users.length).toBe(2)
+    User.findOne({username: 'no-stack-dub-sack'}, (err, user) => {
+      expect(user.username).toBe('no-stack-dub-sack');
     });
+  });
+
+  it('should defintely not respond with 401', async () => {
+    const response = await testSession.post('/api/user');
+    expect(response.statusCode).toBe(401);
   });
 });
