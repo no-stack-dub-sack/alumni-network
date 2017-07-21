@@ -12,7 +12,7 @@ const router = express.Router();
 
 // we post to avoid browser caching
 router.post('/api/user', (req, res) => {
-  console.log(req.poop)
+  console.log(req.user)
   if (req.user) {
     User.findOne({ username: req.user.username }, (err, user) => {
       if (!err) {
