@@ -1,5 +1,5 @@
 import express from 'express';
-import { isAuthenticated } from './passport';
+import isAuthenticated from '../helpers/isAuthenticated';
 import User from '../models/user';
 
 const router = express.Router();
@@ -21,7 +21,7 @@ router.get('/api/community', isAuthenticated, (req, res)  => {
           });
         }
       });
-      res.send({ users });
+      res.status(200).send({ users });
     } else {
       res.status(500);
     }

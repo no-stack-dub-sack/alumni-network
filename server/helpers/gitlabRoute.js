@@ -15,7 +15,8 @@ router.post('/api/verify-other-repos', (req, res) => {
     }
   })
   .catch((err) => {
-    if (err) {res.json({ validPublicRepo: 'false' });}
+    if (err)
+      res.json({ validPublicRepo: 'false' });
   });
 
 });

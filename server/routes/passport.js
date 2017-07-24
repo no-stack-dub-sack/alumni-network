@@ -11,17 +11,11 @@ import User from '../models/user';
 dotenv.config();
 
 const APP_HOST = process.env.APP_HOST;
-const CLIENT_URL = process.env.NODE_ENV === 'production' ? APP_HOST : '//localhost:3000';
+export const CLIENT_URL = process.env.NODE_ENV === 'production' ? APP_HOST : '//localhost:3000';
 const SERVER_URL = process.env.NODE_ENV === 'production' ? APP_HOST : '//localhost:8080';
 
-// authentication middleware using express-session:
-export const isAuthenticated = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.redirect(`${CLIENT_URL}/login`);
-  }
-}
+// eslint-disable-next-line
+import isAuthenticated from '../helpers/isAuthenticated';
 
 const router = express.Router();
 

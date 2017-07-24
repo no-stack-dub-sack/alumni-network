@@ -16,7 +16,7 @@
     "setup": "./setup.sh",
     "dev": "docker-compose up",
     "start": "babel-node ./server.js",
-    "populate-db": "babel-node ./server/helpers/mockData",
+    "populate-db": "babel-node ./server/helpers/__devMockData",
     "heroku-postbuild": "cd client/ && npm install && npm run build"
   },
   "keywords": [],

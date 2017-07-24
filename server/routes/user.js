@@ -3,7 +3,7 @@ import checkHonoraryMemberList from '../helpers/checkHonoraryMemberList';
 import checkWhiteList from '../helpers/checkWhiteList';
 import express from 'express';
 import handleProcessedUser from '../helpers/handleProcessedUser';
-import { isAuthenticated } from './passport';
+import isAuthenticated from '../helpers/isAuthenticated';
 import isCertified from '../helpers/processCerts';
 import safeHandler from '../helpers/safeHandler';
 import User from '../models/user';
@@ -12,7 +12,7 @@ const router = express.Router();
 
 // we post to avoid browser caching
 router.post('/api/user', (req, res) => {
-  console.log(req.user)
+  // console.log(req)
   if (req.user) {
     User.findOne({ username: req.user.username }, (err, user) => {
       if (!err) {
